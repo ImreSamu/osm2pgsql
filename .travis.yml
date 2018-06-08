@@ -69,7 +69,7 @@ matrix:
         - lua -v
 
     - os: linux
-      compiler: gcc7
+      compiler: gcc-7
       sudo: required
       env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
       addons:
@@ -102,7 +102,7 @@ matrix:
 
 
     - os: linux
-      compiler: gcc8
+      compiler: gcc-8
       sudo: required
       env: T="gcc8asan_pg10_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
       addons:
