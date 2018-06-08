@@ -16,7 +16,6 @@ addons_shortcuts:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:  
       - g++-4.8
-      - gcc-4.8
       - postgresql-9.6-postgis-2.3
       - python-psycopg2
       - libexpat1-dev
@@ -36,7 +35,6 @@ addons_shortcuts:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
       - g++-4.9
-      - gcc-4.9
       - postgresql-9.6-postgis-2.3
       - python-psycopg2
       - libexpat1-dev
@@ -56,7 +54,6 @@ addons_shortcuts:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
       - g++-6
-      - gcc-6
       - postgresql-10-postgis-2.4
       - python-psycopg2
       - libexpat1-dev
@@ -95,7 +92,6 @@ addons_shortcuts:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
       - g++-8
-      - gcc-8
       - postgresql-10-postgis-2.4
       - python-psycopg2
       - libexpat1-dev
@@ -116,6 +112,7 @@ addons_shortcuts:
       packages:
       - clang-5.0
       - clang-tidy-5.0
+      - postgresql-9.6-postgis-2.3      
       - python-psycopg2
       - libexpat1-dev
       - libpq-dev
@@ -175,7 +172,6 @@ matrix:
       before_install:
         - brew install lua;
       before_script:
-        - $CXX --version
         - xml2-config --version
         - proj | head -n1
         - lua -v
