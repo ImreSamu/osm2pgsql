@@ -7,111 +7,152 @@ git:
 services:
   - postgresql
 
-addons_shortcuts:
-  addons_buildpackages: &buildpackages
-    - python-psycopg2
-    - libexpat1-dev
-    - libpq-dev
-    - libbz2-dev
-    - libproj-dev
-    - lua5.2
-    - liblua5.2-dev
-    - libluajit-5.1-dev
-    - libboost1.55-dev
-    - libboost-system1.55-dev
-    - libboost-filesystem1.55-dev
 
+
+addons_shortcuts:
 #pg96_gcc48 
-  packages_pg96_gcc48: &packages_pg96_gcc48
-    - 'g++-4.8'
-    - 'gcc-4.8'
-    - "postgresql-9.6-postgis-2.3"
   addons_pg96_gcc48: &pg96_gcc48
     postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages: 
-        << : [*packages_pg96_gcc48, *buildpackages]
-
-
+      packages:  
+      - g++-4.8
+      - gcc-4.8
+      - postgresql-9.6-postgis-2.3
+      - python-psycopg2
+      - libexpat1-dev
+      - libpq-dev
+      - libbz2-dev
+      - libproj-dev
+      - lua5.2
+      - liblua5.2-dev
+      - libluajit-5.1-dev
+      - libboost1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev    
 #pg96_gcc49
-  packages_pg96_gcc49: &packages_pg96_gcc49
-    - 'g++-4.9'
-    - 'gcc-4.9'
-    - "postgresql-9.6-postgis-2.3"
   addons_pg96_gcc49: &pg96_gcc49
     postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
-        << : [*packages_pg96_gcc49, *buildpackages]
-
-
+      - g++-4.9
+      - gcc-4.9
+      - postgresql-9.6-postgis-2.3
+      - python-psycopg2
+      - libexpat1-dev
+      - libpq-dev
+      - libbz2-dev
+      - libproj-dev
+      - lua5.2
+      - liblua5.2-dev
+      - libluajit-5.1-dev
+      - libboost1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev
 #pg10_gcc6
-  packages_pg10_gcc6: &packages_pg10_gcc6
-    - 'g++-6'
-    - 'gcc-6'
-    - "postgresql-10-postgis-2.4"
   addons_pg10_gcc6: &pg10_gcc6
     postgresql: "10"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
-        << : [*packages_pg10_gcc6, *buildpackages]
-
-
-
+      - g++-6
+      - gcc-6
+      - postgresql-10-postgis-2.4
+      - python-psycopg2
+      - libexpat1-dev
+      - libpq-dev
+      - libbz2-dev
+      - libproj-dev
+      - lua5.2
+      - liblua5.2-dev
+      - libluajit-5.1-dev
+      - libboost1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev 
 #pg10_gcc7
-  packages_pg10_gcc7: &packages_pg10_gcc7
-    - 'g++-7'
-    - 'gcc-7'
-    - "postgresql-10-postgis-2.4"
   addons_pg10_gcc7: &pg10_gcc7
     postgresql: "10"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
-        << : [*packages_pg10_gcc7, *buildpackages]
-
-
-#pg10_gcc8
-  packages_pg10_gcc8: &packages_pg10_gcc8
-    - 'g++-8'
-    - 'gcc-8'
-    - "postgresql-10-postgis-2.4"
+      - g++-7
+      - gcc-7
+      - postgresql-10-postgis-2.4
+      - python-psycopg2
+      - libexpat1-dev
+      - libpq-dev
+      - libbz2-dev
+      - libproj-dev
+      - lua5.2
+      - liblua5.2-dev
+      - libluajit-5.1-dev
+      - libboost1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev 
+#pg10_gcc8      
   addons_pg10_gcc8: &pg10_gcc8
     postgresql: "10"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
-        << : [*packages_pg10_gcc8, *buildpackages]
-
-
-#pg10_clang50
-  packages_pg10_clang50: &packages_pg10_clang50
-    - 'clang-5.0'
-    - 'clang-tidy-5.0'
-    - "postgresql-10-postgis-2.4"
+      - g++-8
+      - gcc-8
+      - postgresql-10-postgis-2.4
+      - python-psycopg2
+      - libexpat1-dev
+      - libpq-dev
+      - libbz2-dev
+      - libproj-dev
+      - lua5.2
+      - liblua5.2-dev
+      - libluajit-5.1-dev
+      - libboost1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev   
+#pg10_clang50 
   addons_pg10_clang50: &pg10_clang50
     postgresql: "10"
     apt:
       sources: ["boost-latest",'ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
       packages:
-        << : [*packages_pg10_clang50, *buildpackages]
-
-
-#pg10_clang60
-  packages_pg10_clang60: &packages_pg10_clang60
-    - 'clang-6.0'
-    - 'clang-tidy-6.0'
-    - "postgresql-10-postgis-2.4"
+      - clang-5.0
+      - clang-tidy-5.0
+      - postgresql-10-postgis-2.4
+      - python-psycopg2
+      - libexpat1-dev
+      - libpq-dev
+      - libbz2-dev
+      - libproj-dev
+      - lua5.2
+      - liblua5.2-dev
+      - libluajit-5.1-dev
+      - libboost1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev
+#pg10_clang60  
   addons_pg10_clang60: &pg10_clang60
     postgresql: "10"
     apt:
       sources: ["boost-latest",'ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-6.0']
       packages:
-        << : [*packages_pg10_clang60, *buildpackages]
+      - clang-6.0
+      - clang-tidy-6.0
+      - postgresql-10-postgis-2.4
+      - python-psycopg2
+      - libexpat1-dev
+      - libpq-dev
+      - libbz2-dev
+      - libproj-dev
+      - lua5.2
+      - liblua5.2-dev
+      - libluajit-5.1-dev
+      - libboost1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev 
 
+
+      
 matrix:
 
   include:
