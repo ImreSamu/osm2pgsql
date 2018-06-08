@@ -47,14 +47,14 @@ addons_shortcuts:
       - libboost1.55-dev
       - libboost-system1.55-dev
       - libboost-filesystem1.55-dev
-#pg10_gcc6
-  addons_pg10_gcc6: &pg10_gcc6
-    postgresql: "10"
+#pg96_gcc6
+  addons_pg96_gcc6: &pg96_gcc6
+    postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
       - g++-6
-      - postgresql-10-postgis-2.4
+      - postgresql-9.6-postgis-2.3
       - python-psycopg2
       - libexpat1-dev
       - libpq-dev
@@ -85,14 +85,14 @@ addons_shortcuts:
       - libboost1.55-dev
       - libboost-system1.55-dev
       - libboost-filesystem1.55-dev
-#pg10_gcc8
-  addons_pg10_gcc8: &pg10_gcc8
-    postgresql: "10"
+#pg96_gcc8
+  addons_pg96_gcc8: &pg96_gcc8
+    postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
       packages:
       - g++-8
-      - postgresql-10-postgis-2.4
+      - postgresql-9.6-postgis-2.3
       - python-psycopg2
       - libexpat1-dev
       - libpq-dev
@@ -134,10 +134,7 @@ addons_shortcuts:
       packages:
       - clang-6.0
       - gcc-4.8
-      - gcc-8
-      - clang-3.5
       - clang-tidy-6.0
-      - libllvm6.0
       - postgresql-9.6-postgis-2.3
       - python-psycopg2
       - libexpat1-dev
@@ -212,7 +209,7 @@ matrix:
       compiler: gcc-6
       env: T="gcc6_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-6 CXX=g++-6
-      addons: *pg10_gcc6
+      addons: *pg96_gcc6
 
     - os: linux
       compiler: gcc-7
@@ -224,7 +221,7 @@ matrix:
       compiler: gcc-8
       env: T="gcc8_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-8 CXX=g++-8
-      addons: *pg10_gcc8
+      addons: *pg96_gcc8
 
 
   allow_failures:
