@@ -103,7 +103,6 @@ matrix:
 
 
 
-
 # --------------------
 # GCC7sanitize
 # --------------------
@@ -138,10 +137,10 @@ matrix:
       - if [[ $CXX == 'g++' ]]; then
           export CXX=g++-7;
         fi
-      before_script:
-      - true
-      before_install:
-      - true
+#      before_script:
+#      - true
+#      before_install:
+#      - true
 
 
 
