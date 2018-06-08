@@ -68,15 +68,14 @@ addons_shortcuts:
       - libboost1.55-dev
       - libboost-system1.55-dev
       - libboost-filesystem1.55-dev 
-#pg10_gcc7
-  addons_pg10_gcc7: &pg10_gcc7
-    postgresql: "10"
+#pg96_gcc7
+  addons_pg96_gcc7: &pg96_gcc7
+    postgresql: "9.6"
     apt:
-      sources: ["boost-latest","ubuntu-toolchain-r-test"]
+      sources: ["ubuntu-toolchain-r-test"]
       packages:
       - g++-7
-      - gcc-7
-      - postgresql-10-postgis-2.4
+      - postgresql-9.6-postgis-2.3
       - python-psycopg2
       - libexpat1-dev
       - libpq-dev
@@ -112,7 +111,7 @@ addons_shortcuts:
   addons_pg96_clang50: &pg96_clang50
     postgresql: "9.6"
     apt:
-      sources: ["boost-latest",'ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
+      sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
       packages:
       - clang-5.0
       - clang-tidy-5.0
@@ -127,26 +126,6 @@ addons_shortcuts:
       - libboost1.55-dev
       - libboost-system1.55-dev
       - libboost-filesystem1.55-dev
-#pg96_clang60  
-  addons_pg96_clang60: &pg96_clang60
-    postgresql: "9.6"
-    apt:
-      sources: ['llvm-toolchain-trusty-6.0']
-      packages:
-      - clang-6.0
-      - clang-tidy-6.0
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev 
-
 
 
 matrix:
@@ -167,16 +146,6 @@ matrix:
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="ON"
            CC=clang-5.0 CXX=clang++-5.0 CLANG_TIDY=clang-tidy-5.0
       addons: *pg96_clang50
-
-    - os: linux
-      sudo: false
-      compiler: "clang-6.0"
-      env: T="clang60_dbtest_luajit" RUNTEST="#All-db" 
-           CXXFLAGS="-fsanitize=address,undefined,integer -fno-sanitize-recover=all"
-           LDFLAGS="-fsanitize=address,undefined,integer"
-           LUAJIT_OPTION="ON"
-           CC=clang-6.0 CXX=clang++-6.0
-      addons: *pg96_clang60
 
     - os: linux
       sudo: required
@@ -203,11 +172,10 @@ matrix:
       addons: *pg96_gcc49
 
 
-
     - os: osx
       osx_image: xcode9.1
       compiler: clang
-      sudo: false
+      sudo: required
       env: T="osx_clang_NoDB" RUNTEST="-L NoDB" 
            CXXFLAGS="-pedantic -Werror " LUAJIT_OPTION="OFF"
       before_install:
@@ -220,21 +188,21 @@ matrix:
 
     - os: linux
       compiler: gcc-6
-      sudo: false
+      sudo: required
       env: T="gcc6_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-6 CXX=g++-6
       addons: *pg10_gcc6
 
     - os: linux
       compiler: gcc-7
-      sudo: false
+      sudo: required
       env: T="gcc7_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-7 CXX=g++-7
-      addons: *pg10_gcc7
+      addons: *pg96_gcc7
 
     - os: linux
       compiler: gcc-8
-      sudo: false
+      sudo: required
       env: T="gcc8_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-8 CXX=g++-8
       addons: *pg10_gcc8
@@ -250,10 +218,10 @@ before_install:
   - sudo chown postgres:postgres /extra/pg/tablespacetest
   - dpkg -l | grep -E 'lua|proj|xml|bz2|postgis|zlib|boost|expat'  # checking available versions
 before_script:
+  - psql -U postgres -c "SELECT version()"
   - psql -U postgres -c "CREATE TABLESPACE tablespacetest LOCATION '/extra/pg/tablespacetest'"
   - psql -U postgres -c "CREATE EXTENSION postgis"
   - psql -U postgres -c "CREATE EXTENSION hstore"
-  - psql -U postgres -c "SELECT version()"
   - psql -U postgres -c "SELECT PostGIS_Full_Version()"
 #  - $CXX --version
   - xml2-config --version
