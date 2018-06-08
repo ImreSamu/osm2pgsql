@@ -7,8 +7,6 @@ git:
 services:
   - postgresql
 
-
-
 addons_shortcuts:
 #pg96_gcc48 
   addons_pg96_gcc48: &pg96_gcc48
@@ -110,15 +108,14 @@ addons_shortcuts:
       - libboost1.55-dev
       - libboost-system1.55-dev
       - libboost-filesystem1.55-dev   
-#pg10_clang50 
-  addons_pg10_clang50: &pg10_clang50
-    postgresql: "10"
+#pg96_clang50 
+  addons_pg96_clang50: &pg96_clang50
+    postgresql: "9.6"
     apt:
       sources: ["boost-latest",'ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
       packages:
       - clang-5.0
       - clang-tidy-5.0
-      - postgresql-10-postgis-2.4
       - python-psycopg2
       - libexpat1-dev
       - libpq-dev
@@ -130,15 +127,14 @@ addons_shortcuts:
       - libboost1.55-dev
       - libboost-system1.55-dev
       - libboost-filesystem1.55-dev
-#pg10_clang60  
-  addons_pg10_clang60: &pg10_clang60
-    postgresql: "10"
+#pg96_clang60  
+  addons_pg96_clang60: &pg96_clang60
+    postgresql: "9.6"
     apt:
-      sources: ["boost-latest",'ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-6.0']
+      sources: ['llvm-toolchain-trusty-6.0']
       packages:
       - clang-6.0
       - clang-tidy-6.0
-      - postgresql-10-postgis-2.4
       - python-psycopg2
       - libexpat1-dev
       - libpq-dev
@@ -152,7 +148,7 @@ addons_shortcuts:
       - libboost-filesystem1.55-dev 
 
 
-      
+
 matrix:
 
   include:
@@ -162,7 +158,7 @@ matrix:
       env: T="clang50_dbtest" RUNTEST="#All-db" 
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="OFF"
            CC=clang-5.0 CXX=clang++-5.0 CLANG_TIDY=clang-tidy-5.0
-      addons: *pg10_clang50
+      addons: *pg96_clang50
 
     - os: linux
       sudo: false
@@ -170,7 +166,7 @@ matrix:
       env: T="clang50_dbtest_luajit" RUNTEST="#All-db" 
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="ON"
            CC=clang-5.0 CXX=clang++-5.0 CLANG_TIDY=clang-tidy-5.0
-      addons: *pg10_clang50
+      addons: *pg96_clang50
 
     - os: linux
       sudo: false
@@ -180,7 +176,7 @@ matrix:
            LDFLAGS="-fsanitize=address,undefined,integer"
            LUAJIT_OPTION="ON"
            CC=clang-6.0 CXX=clang++-6.0
-      addons: *pg10_clang60
+      addons: *pg96_clang60
 
     - os: linux
       sudo: required
@@ -259,7 +255,7 @@ before_script:
   - psql -U postgres -c "CREATE EXTENSION hstore"
   - psql -U postgres -c "SELECT version()"
   - psql -U postgres -c "SELECT PostGIS_Full_Version()"
-  - $CXX --version
+#  - $CXX --version
   - xml2-config --version
   - proj | head -n1
   - lua -v
