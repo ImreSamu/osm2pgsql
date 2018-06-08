@@ -154,7 +154,7 @@ addons_shortcuts:
 matrix:
 
   include:
-      - os: linux
+    - os: linux
       compiler: "clang-6.0"
       env: T="clang60_dbtest" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="OFF"
