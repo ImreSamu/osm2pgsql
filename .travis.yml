@@ -9,12 +9,12 @@ services:
   - postgresql
 
 addons_shortcuts:
-#pg96_gcc48 
+#pg96_gcc48
   addons_pg96_gcc48: &pg96_gcc48
     postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages:  
+      packages:
       - g++-4.8
       - postgresql-9.6-postgis-2.3
       - python-psycopg2
@@ -27,7 +27,7 @@ addons_shortcuts:
       - libluajit-5.1-dev
       - libboost1.55-dev
       - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev    
+      - libboost-filesystem1.55-dev
 #pg96_gcc49
   addons_pg96_gcc49: &pg96_gcc49
     postgresql: "9.6"
@@ -65,7 +65,7 @@ addons_shortcuts:
       - libluajit-5.1-dev
       - libboost1.55-dev
       - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev 
+      - libboost-filesystem1.55-dev
 #pg96_gcc7
   addons_pg96_gcc7: &pg96_gcc7
     postgresql: "9.6"
@@ -84,8 +84,8 @@ addons_shortcuts:
       - libluajit-5.1-dev
       - libboost1.55-dev
       - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev 
-#pg10_gcc8      
+      - libboost-filesystem1.55-dev
+#pg10_gcc8
   addons_pg10_gcc8: &pg10_gcc8
     postgresql: "10"
     apt:
@@ -103,8 +103,8 @@ addons_shortcuts:
       - libluajit-5.1-dev
       - libboost1.55-dev
       - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev   
-#pg96_clang50 
+      - libboost-filesystem1.55-dev
+#pg96_clang50
   addons_pg96_clang50: &pg96_clang50
     postgresql: "9.6"
     apt:
@@ -112,7 +112,7 @@ addons_shortcuts:
       packages:
       - clang-5.0
       - clang-tidy-5.0
-      - postgresql-9.6-postgis-2.3      
+      - postgresql-9.6-postgis-2.3
       - python-psycopg2
       - libexpat1-dev
       - libpq-dev
@@ -125,7 +125,7 @@ addons_shortcuts:
       - libboost-system1.55-dev
       - libboost-filesystem1.55-dev
 
-#pg96_clang60 
+#pg96_clang60
   addons_pg96_clang60: &pg96_clang60
     postgresql: "9.6"
     apt:
@@ -135,10 +135,10 @@ addons_shortcuts:
       - clang-6.0
       - gcc-4.8
       - gcc-8
-      - clang-3.5      
+      - clang-3.5
       - clang-tidy-6.0
       - libllvm6.0
-      - postgresql-9.6-postgis-2.3      
+      - postgresql-9.6-postgis-2.3
       - python-psycopg2
       - libexpat1-dev
       - libpq-dev
@@ -156,41 +156,41 @@ matrix:
   include:
       - os: linux
       compiler: "clang-6.0"
-      env: T="clang60_dbtest" RUNTEST="#All-db" 
+      env: T="clang60_dbtest" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="OFF"
            CC=clang-6.0 CXX=clang++-6.0
       addons: *pg96_clang60
 
     - os: linux
       compiler: "clang-5.0"
-      env: T="clang50_dbtest" RUNTEST="#All-db" 
+      env: T="clang50_dbtest" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="OFF"
            CC=clang-5.0 CXX=clang++-5.0 CLANG_TIDY=clang-tidy-5.0
       addons: *pg96_clang50
 
     - os: linux
       compiler: "clang-5.0"
-      env: T="clang50_dbtest_luajit" RUNTEST="#All-db" 
+      env: T="clang50_dbtest_luajit" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="ON"
            CC=clang-5.0 CXX=clang++-5.0 CLANG_TIDY=clang-tidy-5.0
       addons: *pg96_clang50
 
     - os: linux
-      compiler: "gcc-4.8"      
-      env: T="gcc4asan_NoDB" RUNTEST="-L NoDB" 
+      compiler: "gcc-4.8"
+      env: T="gcc4asan_NoDB" RUNTEST="-L NoDB"
            CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="OFF"
            CC=gcc-4.8 CXX=g++-4.8
       addons: *pg96_gcc48
 
     - os: linux
-      compiler: "gcc-4.9"      
+      compiler: "gcc-4.9"
       env: T="gcc4asan_dbtest" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="OFF"
            CC=gcc-4.9 CXX=g++-4.9
       addons: *pg96_gcc49
 
     - os: linux
-      compiler: "gcc-4.9"      
+      compiler: "gcc-4.9"
       env: T="gcc4asan_dbtest_luajit" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
            CC=gcc-4.9 CXX=g++-4.9
@@ -199,7 +199,7 @@ matrix:
 
     - os: osx
       compiler: clang
-      env: T="osx_clang_NoDB" RUNTEST="-L NoDB" 
+      env: T="osx_clang_NoDB" RUNTEST="-L NoDB"
            CXXFLAGS="-pedantic -Werror " LUAJIT_OPTION="OFF"
       before_install:
         - brew install lua;
@@ -233,7 +233,7 @@ matrix:
            CC=gcc-8 CXX=g++-8
 
 before_install:
-  - sudo mkdir -p /extra/pg/tablespacetest  
+  - sudo mkdir -p /extra/pg/tablespacetest
   - sudo chown postgres:postgres /extra/pg/tablespacetest
   - dpkg -l | grep -E 'lua|proj|xml|bz2|postgis|zlib|boost|expat'  # checking available versions
 before_script:
