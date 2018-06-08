@@ -71,7 +71,7 @@ matrix:
     - os: linux
       compiler: gcc-7
       sudo: required
-      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
+      env: T="gcc7_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
       addons:
         postgresql: "9.6"
         apt:
@@ -103,7 +103,7 @@ matrix:
     - os: linux
       compiler: gcc-8
       sudo: required
-      env: T="gcc8asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
+      env: T="gcc8_pg10_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="ON"
       addons:
         postgresql: "10"
         apt:
