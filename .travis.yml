@@ -279,6 +279,16 @@ matrix:
       addons: *pg96_gcc7
 
     - os: linux
+      compiler: gcc-7
+      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" LUAJIT_OPTION="ON"
+           CXXFLAGS=" -pedantic -Werror -fsanitize=address" 
+           ASAN_OPTIONS="verbosity=1:log_threads=1"
+           LSAN_OPTIONS="verbosity=1:log_threads=1"
+           CC=gcc-7 CXX=g++-7
+      addons: *pg96_gcc7
+
+
+    - os: linux
       compiler: gcc-8
       env: T="gcc8_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-8 CXX=g++-8
