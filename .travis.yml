@@ -125,10 +125,42 @@ addons_shortcuts:
       - libboost-system1.55-dev
       - libboost-filesystem1.55-dev
 
+#pg96_clang60 
+  addons_pg96_clang60: &pg96_clang60
+    postgresql: "9.6"
+    apt:
+      update: true
+      sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-6.0']
+      packages:
+      - clang-6.0
+      - gcc-4.8
+      - gcc-8
+      - clang-3.5      
+      - clang-tidy-6.0
+      - libllvm6.0
+      - postgresql-9.6-postgis-2.3      
+      - python-psycopg2
+      - libexpat1-dev
+      - libpq-dev
+      - libbz2-dev
+      - libproj-dev
+      - lua5.2
+      - liblua5.2-dev
+      - libluajit-5.1-dev
+      - libboost1.55-dev
+      - libboost-system1.55-dev
+      - libboost-filesystem1.55-dev
 
 matrix:
 
   include:
+      - os: linux
+      compiler: "clang-6.0"
+      env: T="clang60_dbtest" RUNTEST="#All-db" 
+           CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="OFF"
+           CC=clang-6.0 CXX=clang++-6.0
+      addons: *pg96_clang60
+
     - os: linux
       compiler: "clang-5.0"
       env: T="clang50_dbtest" RUNTEST="#All-db" 
