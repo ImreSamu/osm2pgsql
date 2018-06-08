@@ -1,5 +1,6 @@
 language: generic
-sudo: false
+
+sudo: required
 
 git:
   depth: 1
@@ -132,7 +133,6 @@ matrix:
 
   include:
     - os: linux
-      sudo: false
       compiler: "clang-5.0"
       env: T="clang50_dbtest" RUNTEST="#All-db" 
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="OFF"
@@ -140,7 +140,6 @@ matrix:
       addons: *pg96_clang50
 
     - os: linux
-      sudo: false
       compiler: "clang-5.0"
       env: T="clang50_dbtest_luajit" RUNTEST="#All-db" 
            CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="ON"
@@ -148,7 +147,6 @@ matrix:
       addons: *pg96_clang50
 
     - os: linux
-      sudo: required
       compiler: "gcc-4.8"      
       env: T="gcc4asan_NoDB" RUNTEST="-L NoDB" 
            CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="OFF"
@@ -156,7 +154,6 @@ matrix:
       addons: *pg96_gcc48
 
     - os: linux
-      sudo: required
       compiler: "gcc-4.9"      
       env: T="gcc4asan_dbtest" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="OFF"
@@ -164,7 +161,6 @@ matrix:
       addons: *pg96_gcc49
 
     - os: linux
-      sudo: required
       compiler: "gcc-4.9"      
       env: T="gcc4asan_dbtest_luajit" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
@@ -173,9 +169,7 @@ matrix:
 
 
     - os: osx
-      osx_image: xcode9.1
       compiler: clang
-      sudo: required
       env: T="osx_clang_NoDB" RUNTEST="-L NoDB" 
            CXXFLAGS="-pedantic -Werror " LUAJIT_OPTION="OFF"
       before_install:
@@ -188,21 +182,18 @@ matrix:
 
     - os: linux
       compiler: gcc-6
-      sudo: required
       env: T="gcc6_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-6 CXX=g++-6
       addons: *pg10_gcc6
 
     - os: linux
       compiler: gcc-7
-      sudo: required
       env: T="gcc7_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-7 CXX=g++-7
       addons: *pg96_gcc7
 
     - os: linux
       compiler: gcc-8
-      sudo: required
       env: T="gcc8_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror" LUAJIT_OPTION="ON"
            CC=gcc-8 CXX=g++-8
       addons: *pg10_gcc8
