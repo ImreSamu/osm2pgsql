@@ -37,38 +37,6 @@ matrix:
       env: T="clang_dbtest" RUNTEST="#All-db" CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="OFF"
 
     - os: linux
-      compiler: gcc
-      sudo: required
-      env: T="gcc4asan_NoDB" RUNTEST="-L NoDB" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="OFF"
-
-    - os: linux
-      compiler: gcc
-      sudo: required
-      env: T="gcc4asan_dbtest" RUNTEST="#All-db" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="OFF"
-
-    - os: linux
-      compiler: clang
-      sudo: false
-      env: T="clang_notest_luajit"  CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="ON"
-
-    - os: linux
-      compiler: gcc
-      sudo: required
-      env: T="gcc4asan_NoDB_luajit" RUNTEST="-L NoDB" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
-
-    - os: osx
-      compiler: clang
-      sudo: false
-      env: T="osx_clang_NoDB" RUNTEST="-L NoDB" CXXFLAGS="-pedantic -Werror " LUAJIT_OPTION="OFF"
-      before_install:
-        - brew install lua;
-      before_script:
-        - $CXX --version
-        - xml2-config --version
-        - proj | head -n1
-        - lua -v
-
-    - os: linux
       compiler: gcc-7
       sudo: required
       env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
@@ -132,13 +100,72 @@ matrix:
           export CXX=g++-8;
         fi
 
-  allow_failures:
-    - os: linux
-      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
+# --------------------
+# GCC7sanitize
+# --------------------
 
     - os: linux
-      env: T="gcc8asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
+      sudo: false
+      language: cpp
+      compiler: gcc-7
+      env: T=GCC7sanitize RUNTEST="-L NoDB" CXXFLAGS=" -pedantic -Werror " LUA_OPTION="ON" LUAJIT_OPTION="OFF"
+      addons:
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          packages:
+          - g++-7
+          - libexpat1-dev
+          - libpq-dev
+          - libbz2-dev
+          - libproj-dev
+          - lua5.2
+          - liblua5.2-dev
+          - libluajit-5.1-dev
+          - libboost1.55-dev
+          - libboost-system1.55-dev
+          - libboost-filesystem1.55-dev
+      install:
+      - if [[ $CC == 'gcc' ]]; then
+          export CC=gcc-7;
+        fi
+      - if [[ $CXX == 'g++' ]]; then
+          export CXX=g++-7;
+        fi
 
+# --------------------
+# GCC8
+# --------------------
+    - os: linux
+      sudo: false
+      language: cpp
+      compiler: gcc-8
+      env: T=GCC8 RUNTEST="-L NoDB" CXXFLAGS="-Werror" LUA_OPTION="ON" LUAJIT_OPTION="OFF"
+      addons:
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          packages:
+          - g++-8
+          - libexpat1-dev
+          - libpq-dev
+          - libbz2-dev
+          - libproj-dev
+          - lua5.2
+          - liblua5.2-dev
+          - libluajit-5.1-dev
+          - libboost1.55-dev
+          - libboost-system1.55-dev
+          - libboost-filesystem1.55-dev
+      install:
+      - if [[ $CC == 'gcc' ]]; then
+          export CC=gcc-8;
+        fi
+      - if [[ $CXX == 'g++' ]]; then
+          export CXX=g++-8;
+        fi
+
+        
 before_install:
   - sudo mkdir -p /extra/pg/tablespacetest
   - sudo chown postgres:postgres /extra/pg/tablespacetest
