@@ -16,7 +16,7 @@ addons:
     packages:
     - g++-4.8
     - postgresql-9.6-postgis-2.3
-    - python-psycopg2    
+    - python-psycopg2
     - libexpat1-dev
     - libpq-dev
     - libbz2-dev
@@ -62,7 +62,7 @@ matrix:
       env: T="osx_clang_NoDB" RUNTEST="-L NoDB" CXXFLAGS="-pedantic -Werror " LUAJIT_OPTION="OFF"
       before_install:
         - brew install lua;
-      before_script:  
+      before_script:
         - $CXX --version
         - xml2-config --version
         - proj | head -n1
@@ -71,17 +71,16 @@ matrix:
     - os: linux
       compiler: gcc-7
       sudo: required
-      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
+      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
       addons:
-        postgresql: "9.6"      
+        postgresql: "9.6"
         apt:
           sources:
-          - boost-latest          
           - ubuntu-toolchain-r-test
           packages:
           - g++-7
           - postgresql-9.6-postgis-2.3
-          - python-psycopg2              
+          - python-psycopg2
           - libexpat1-dev
           - libpq-dev
           - libbz2-dev
@@ -104,17 +103,17 @@ matrix:
     - os: linux
       compiler: gcc-8
       sudo: required
-      env: T="gcc8asan_pg10_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
+      env: T="gcc8asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
       addons:
-        postgresql: "10"      
+        postgresql: "10"
         apt:
           sources:
-          - boost-latest          
+          - boost-latest
           - ubuntu-toolchain-r-test
           packages:
           - g++-8
           - postgresql-10-postgis-2.4
-          - python-psycopg2              
+          - python-psycopg2
           - libexpat1-dev
           - libpq-dev
           - libbz2-dev
@@ -135,14 +134,15 @@ matrix:
 
   allow_failures:
     - os: linux
-      env: T="gcc8asan_pg10_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
+      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
 
     - os: linux
-      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
+      env: T="gcc8asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS=" -pedantic -Werror -fsanitize=address " LUAJIT_OPTION="ON"
 
 before_install:
   - sudo mkdir -p /extra/pg/tablespacetest
   - sudo chown postgres:postgres /extra/pg/tablespacetest
+  # for checking available versions
   - dpkg -l | grep -E 'lua|proj|xml|bz2|postgis|zlib|boost|expat'
 # update versions
 install:
@@ -152,9 +152,9 @@ install:
   - if [[ $CXX == 'g++' ]]; then
       export CXX=g++-4.8;
     fi
-before_script:  
+before_script:
   - psql -U postgres -c "CREATE TABLESPACE tablespacetest LOCATION '/extra/pg/tablespacetest'"
-  - psql -U postgres -c "CREATE EXTENSION postgis" 
+  - psql -U postgres -c "CREATE EXTENSION postgis"
   - psql -U postgres -c "CREATE EXTENSION hstore"
   - psql -U postgres -c "SELECT version()"
   - psql -U postgres -c "SELECT PostGIS_Full_Version()"
