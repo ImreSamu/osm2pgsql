@@ -36,43 +36,12 @@ matrix:
       sudo: false
       env: T="clang_dbtest" RUNTEST="#All-db" CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="OFF"
 
-    - os: linux
-      compiler: gcc-7
-      sudo: required
-      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
-      addons:
-        postgresql: "9.6"
-        apt:
-          sources:
-#          - boost-latest          
-          - ubuntu-toolchain-r-test
-          packages:
-          - g++-7
-          - postgresql-9.6-postgis-2.3
-          - python-psycopg2
-          - libexpat1-dev
-          - libpq-dev
-          - libbz2-dev
-          - libproj-dev
-          - lua5.2
-          - liblua5.2-dev
-          - libluajit-5.1-dev
-          - libboost1.55-dev
-          - libboost-system1.55-dev
-          - libboost-filesystem1.55-dev
-      install:
-      - if [[ $CC == 'gcc' ]]; then
-          export CC=gcc-7;
-        fi
-      - if [[ $CXX == 'g++' ]]; then
-          export CXX=g++-7;
-        fi
 
 
     - os: linux
       compiler: gcc-8
       sudo: required
-      env: T="gcc8asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
+      env: T="gcc8asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="ON"
       addons:
         postgresql: "9.6"
         apt:
@@ -103,6 +72,38 @@ matrix:
 
 
 
+
+    - os: linux
+      compiler: gcc-7
+      sudo: required
+      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" CXXFLAGS="-pedantic -Werror" LUAJIT_OPTION="ON"
+      addons:
+        postgresql: "9.6"
+        apt:
+          sources:
+          - ubuntu-toolchain-r-test
+          packages:
+          - g++-7
+          - postgresql-9.6-postgis-2.3
+          - python-psycopg2
+          - libexpat1-dev
+          - libpq-dev
+          - libbz2-dev
+          - libproj-dev
+          - lua5.2
+          - liblua5.2-dev
+          - libluajit-5.1-dev
+          - libboost1.55-dev
+          - libboost-system1.55-dev
+          - libboost-filesystem1.55-dev
+      install:
+      - if [[ $CC == 'gcc' ]]; then
+          export CC=gcc-7;
+        fi
+      - if [[ $CXX == 'g++' ]]; then
+          export CXX=g++-7;
+        fi
+
 # --------------------
 # GCC7sanitize
 # --------------------
@@ -119,7 +120,7 @@ matrix:
           - ubuntu-toolchain-r-test
           packages:
           - g++-7
-          - postgresql-9.6-postgis-2.3          
+          - postgresql-9.6-postgis-2.3
           - libexpat1-dev
           - libpq-dev
           - libbz2-dev
