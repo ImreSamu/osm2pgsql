@@ -1,5 +1,5 @@
 language: generic
-sudo: required
+sudo: false
 git:
   depth: 1
 services:
