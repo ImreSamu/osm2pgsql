@@ -35,8 +35,7 @@ addons_shortcuts:
     apt:
       update: true
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-6.0']
-      # workaround: gcc-4.9 is important here  https://github.com/travis-ci/travis-ci/issues/9629
-      packages: ['clang-6.0', 'gcc-4.9','postgresql-9.6-postgis-2.3',
+      packages: ['clang-6.0','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
@@ -206,7 +205,7 @@ matrix:
 
     - os: linux
       compiler: gcc-8
-      env: T="gcc8_pg96_NoDB_noCCXFLAGS" RUNTEST="-L NoDB" LUAJIT_OPTION="OFF"
+      env: T="gcc8_pg96_dbtest_noCCXFLAGS" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CC=gcc-8 CXX=g++-8
       addons: *gcc8_pg96
 
@@ -253,7 +252,9 @@ matrix:
            CC=gcc-7 CXX=g++-7
 
     - os: linux
-      compiler: gcc-8
+      env: T="gcc8_pg96_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
+           CXXFLAGS="-pedantic -Werror"
+           CC=gcc-8 CXX=g++-8
 
 before_install:
   - sudo mkdir -p /extra/pg/tablespacetest   # for the database test
