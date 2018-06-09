@@ -18,148 +18,68 @@ addons_shortcuts:
     postgresql: "9.3"
     apt:
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-4.0']
-      packages:
-      - clang-4.0
-      - postgresql-9.3-postgis-2.3
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev
+      packages: ['clang-4.0', 'postgresql-9.3-postgis-2.3',
+                      'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
+                      'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
+                      'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']      
   addons_clang50_pg94: &clang50_pg94
     postgresql: "9.4"
     apt:
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
-      packages:
-      - clang-5.0
-      - postgresql-9.4-postgis-2.3
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev
+      packages: ['clang-5.0', 'postgresql-9.4-postgis-2.3',
+                      'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
+                      'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
+                      'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']      
   addons_clang60_pg96: &clang60_pg96
     postgresql: "9.6"
     apt:
       update: true
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-6.0']
-      packages:
-      - clang-6.0
-      - gcc-4.8
-      - postgresql-9.6-postgis-2.3
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev
+      packages: ['clang-6.0', 'gcc-4.8','postgresql-9.6-postgis-2.3',
+                      'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
+                      'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
+                      'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc48_pg96: &gcc48_pg96
     postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages:
-      - g++-4.8
-      - postgresql-9.6-postgis-2.3
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev
+      packages: ['gcc-4.8','postgresql-9.6-postgis-2.3',
+                      'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
+                      'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
+                      'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc49_pg96: &gcc49_pg96
     postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages:
-      - g++-4.9
-      - postgresql-9.6-postgis-2.3
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev
+      packages: ['gcc-4.9','postgresql-9.6-postgis-2.3',
+                      'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
+                      'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
+                      'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc6_pg96: &gcc6_pg96
     postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages:
-      - g++-6
-      - postgresql-9.6-postgis-2.3
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev
+      packages: ['gcc-6','postgresql-9.6-postgis-2.3',
+                      'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
+                      'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
+                      'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc7_pg96: &gcc7_pg96
     postgresql: "9.6"
     apt:
       sources: ["ubuntu-toolchain-r-test"]
-      packages:
-      - g++-7
-      - postgresql-9.6-postgis-2.3
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev
+      packages: ['gcc-7','postgresql-9.6-postgis-2.3',
+                      'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
+                      'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
+                      'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']      
   addons_gcc8_pg96: &gcc8_pg96
     postgresql: "9.6"
     apt:
       sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages:
-      - g++-8
-      - postgresql-9.6-postgis-2.3
-      - python-psycopg2
-      - libexpat1-dev
-      - libpq-dev
-      - libbz2-dev
-      - libproj-dev
-      - lua5.2
-      - liblua5.2-dev
-      - libluajit-5.1-dev
-      - libboost1.55-dev
-      - libboost-system1.55-dev
-      - libboost-filesystem1.55-dev
+      packages: ['gcc-8','postgresql-9.6-postgis-2.3',
+                      'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
+                      'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
+                      'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
+
 
 
 # env: T="...."     //  unique test id, test name
