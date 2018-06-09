@@ -10,7 +10,8 @@ addons_shortcuts:
     postgresql: "9.2"
     apt:
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-3.8']
-      packages: ['clang-3.8', 'postgresql-9.2-postgis-2.3',
+      packages: ['clang-3.8', 
+#      'postgresql-9.2-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
@@ -42,24 +43,24 @@ addons_shortcuts:
   addons_gcc48_pg96: &gcc48_pg96
     postgresql: "9.6"
     apt:
-      sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages: ['gcc-4.8','postgresql-9.6-postgis-2.3',
+      sources: ["ubuntu-toolchain-r-test"]
+      packages: ['g++-4.8','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc49_pg96: &gcc49_pg96
     postgresql: "9.6"
     apt:
-      sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages: ['gcc-4.9','postgresql-9.6-postgis-2.3',
+      sources: ["ubuntu-toolchain-r-test"]
+      packages: ['g++-4.9','gcc-4.9','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc6_pg96: &gcc6_pg96
     postgresql: "9.6"
     apt:
-      sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages: ['gcc-6','postgresql-9.6-postgis-2.3',
+      sources: ["ubuntu-toolchain-r-test"]
+      packages: ['g++-6','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
@@ -67,15 +68,15 @@ addons_shortcuts:
     postgresql: "9.6"
     apt:
       sources: ["ubuntu-toolchain-r-test"]
-      packages: ['gcc-7','postgresql-9.6-postgis-2.3',
+      packages: ['g++-7','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']      
   addons_gcc8_pg96: &gcc8_pg96
     postgresql: "9.6"
     apt:
-      sources: ["boost-latest","ubuntu-toolchain-r-test"]
-      packages: ['gcc-8','postgresql-9.6-postgis-2.3',
+      sources: ["ubuntu-toolchain-r-test"]
+      packages: ['g++-8','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
@@ -210,19 +211,19 @@ matrix:
            LSAN_OPTIONS="verbosity=1:log_threads=1"
 
     - os: linux
-      env: T="clang60_pg96_asan_luajit_dbtest" RUNTEST="#All-db"
+      env: T="clang60_pg96_asan_dbtest_luajit" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror  -fsanitize=address" LUAJIT_OPTION="ON"
            CC=clang-6.0 CXX=clang++-6.0
            ASAN_OPTIONS="verbosity=1:log_threads=1"
            LSAN_OPTIONS="verbosity=1:log_threads=1"
 
     - os: linux
-      env: T="gcc4_pg96_asan_dbtest" RUNTEST="#All-db"
+      env: T="gcc49_pg96_asan_dbtest" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="OFF"
            CC=gcc-4.9 CXX=g++-4.9
 
     - os: linux
-      env: T="gcc4_pg96_asan_dbtest_luajit" RUNTEST="#All-db"
+      env: T="gcc49_pg96_asan_dbtest_luajit" RUNTEST="#All-db"
            CXXFLAGS="-pedantic -Werror -fsanitize=address" LUAJIT_OPTION="ON"
            CC=gcc-4.9 CXX=g++-4.9
 
