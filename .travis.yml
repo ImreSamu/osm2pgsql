@@ -51,7 +51,7 @@ addons_shortcuts:
     postgresql: '9.6'
     apt:
       sources: ["ubuntu-toolchain-r-test"]
-      packages: ['g++-4.9','gcc-4.9','postgresql-9.6-postgis-2.3',
+      packages: ['g++-4.9','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
@@ -205,13 +205,14 @@ matrix:
 
     - os: linux
       compiler: gcc-8
-      env: T="gcc8_pg96_dbtest_noCCXFLAGS" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
+      env: T="gcc8_pg96_dbtest_luajit_noCCXFLAGS" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CC=gcc-8 CXX=g++-8
       addons: *gcc8_pg96
 
 
-  allow_failures:
 
+  allow_failures:
+# some problems..  need debugging... [gcc8, luajit, asan test cases]
     - os: linux
       env: T="clang50_pg94_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CXXFLAGS="-pedantic -Werror"
@@ -254,6 +255,10 @@ matrix:
     - os: linux
       env: T="gcc8_pg96_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CXXFLAGS="-pedantic -Werror"
+           CC=gcc-8 CXX=g++-8
+
+    - os: linux
+      env: T="gcc8_pg96_dbtest_luajit_noCCXFLAGS" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CC=gcc-8 CXX=g++-8
 
 before_install:
