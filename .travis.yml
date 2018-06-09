@@ -198,6 +198,18 @@ matrix:
            CC=gcc-8 CXX=g++-8
       addons: *gcc8_pg96
 
+    - os: linux
+      compiler: gcc-8
+      env: T="gcc8_pg96_dbtest_noCCXFLAGS" RUNTEST="#Dbtest" LUAJIT_OPTION="OFF"
+           CC=gcc-8 CXX=g++-8
+      addons: *gcc8_pg96
+
+    - os: linux
+      compiler: gcc-8
+      env: T="gcc8_pg96_NoDB_noCCXFLAGS" RUNTEST="-L NoDB" LUAJIT_OPTION="OFF"
+           CC=gcc-8 CXX=g++-8
+      addons: *gcc8_pg96
+
 
   allow_failures:
 
