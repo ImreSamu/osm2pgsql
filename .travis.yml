@@ -231,6 +231,25 @@ matrix:
 
 
 
+    - os: linux
+      compiler: "clang-6.0"
+      env: T="clang60san_dbtest" RUNTEST="#All-db"
+           CXXFLAGS="-pedantic -Werror  -fsanitize=address" LUAJIT_OPTION="OFF"
+           CC=clang-6.0 CXX=clang++-6.0
+           ASAN_OPTIONS="verbosity=1:log_threads=1"
+           LSAN_OPTIONS="verbosity=1:log_threads=1"
+      addons: *pg96_clang60
+
+    - os: linux
+      compiler: "clang-6.0"
+      env: T="clang60san_luajit_dbtest" RUNTEST="#All-db"
+           CXXFLAGS="-pedantic -Werror  -fsanitize=address" LUAJIT_OPTION="ON"
+           CC=clang-6.0 CXX=clang++-6.0
+           ASAN_OPTIONS="verbosity=1:log_threads=1"
+           LSAN_OPTIONS="verbosity=1:log_threads=1"           
+      addons: *pg96_clang60
+
+
 
 
     - os: linux
@@ -278,14 +297,16 @@ matrix:
            CC=gcc-7 CXX=g++-7
       addons: *pg96_gcc7
 
-    - os: linux
-      compiler: gcc-7
-      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS=" -pedantic -Werror -fsanitize=address" 
-           ASAN_OPTIONS="verbosity=1:log_threads=1"
-           LSAN_OPTIONS="verbosity=1:log_threads=1"
-           CC=gcc-7 CXX=g++-7
-      addons: *pg96_gcc7
+
+## not working:  gcc-7 + fsanitize=address
+##    - os: linux
+##      compiler: gcc-7
+##      env: T="gcc7asan_dbtest_luajit" RUNTEST="#All-dbtest" LUAJIT_OPTION="ON"
+##           CXXFLAGS=" -pedantic -Werror -fsanitize=address" 
+##           ASAN_OPTIONS="verbosity=1:log_threads=1"
+##           LSAN_OPTIONS="verbosity=1:log_threads=1"
+##           CC=gcc-7 CXX=g++-7
+##      addons: *pg96_gcc7
 
 
     - os: linux
