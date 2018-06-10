@@ -87,6 +87,7 @@ matrix:
   include:
   # ---- Linux + CLANG ---------------------------
     - os: linux
+      if: type = pull_request OR (type = push AND branch = master)
       compiler: "clang-3.8"
       env: T="clang38_pg92_dbtest" RUNTEST="#Dbtest" LUAJIT_OPTION="OFF"
            CXXFLAGS="-pedantic -Werror"
@@ -94,6 +95,7 @@ matrix:
       addons: *clang38_pg92
 
     - os: linux
+      if: type = push AND branch = master
       compiler: "clang-4.0"
       env: T="clang40_pg93_dbtest" RUNTEST="#Dbtest" LUAJIT_OPTION="OFF"
            CXXFLAGS="-pedantic -Werror"
@@ -102,6 +104,7 @@ matrix:
 
     - os: linux
       compiler: "clang-5.0"
+      if: type = push AND branch = master
       env: T="clang50_pg94_dbtest" RUNTEST="#Dbtest" LUAJIT_OPTION="OFF"
            CXXFLAGS="-pedantic -Werror"
            CC=clang-5.0 CXX=clang++-5.0
@@ -109,6 +112,7 @@ matrix:
 
     - os: linux
       compiler: "clang-5.0"
+      if: type = push AND branch = master
       env: T="clang50_pg94_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CXXFLAGS="-pedantic -Werror"
            CC=clang-5.0 CXX=clang++-5.0
@@ -155,6 +159,7 @@ matrix:
 
   # ---- Linux + GCC ---------------------------
     - os: linux
+      if: type = pull_request OR (type = push AND branch = master)
       compiler: "gcc-4.8"
       env: T="gcc48_pg96_asan_NoDB" RUNTEST="-L NoDB" LUAJIT_OPTION="OFF"
            CXXFLAGS="-pedantic -Werror -fsanitize=address"
@@ -162,6 +167,7 @@ matrix:
       addons: *gcc48_pg96
 
     - os: linux
+      if: type = push AND branch = master      
       compiler: "gcc-4.9"
       env: T="gcc49_pg96_asan_dbtest" RUNTEST="#Dbtest" LUAJIT_OPTION="OFF"
            CXXFLAGS="-pedantic -Werror -fsanitize=address"
@@ -170,6 +176,7 @@ matrix:
 
     - os: linux
       compiler: "gcc-4.9"
+      if: type = push AND branch = master        
       env: T="gcc49_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CXXFLAGS="-pedantic -Werror -fsanitize=address"
            CC=gcc-4.9 CXX=g++-4.9
@@ -177,6 +184,7 @@ matrix:
 
     - os: linux
       compiler: gcc-6
+      if: type = push AND branch = master        
       env: T="gcc6_pg96_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CXXFLAGS="-pedantic -Werror"
            CC=gcc-6 CXX=g++-6
@@ -214,52 +222,15 @@ matrix:
   allow_failures:
 # some problems..  need debugging... [gcc8, luajit, asan test cases]
     - os: linux
-      env: T="clang50_pg94_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror"
-           CC=clang-5.0 CXX=clang++-5.0
+      if: env(CXXFLAGS)="-pedantic -Werror -fsanitize=address"
 
     - os: linux
-      env: T="clang60_pg96_asan_dbtest" RUNTEST="#Dbtest" LUAJIT_OPTION="OFF"
-           CXXFLAGS="-pedantic -Werror -fsanitize=address"
-           CC=clang-6.0 CXX=clang++-6.0
-           ASAN_OPTIONS="verbosity=1:log_threads=1"
-           LSAN_OPTIONS="verbosity=1:log_threads=1"
+      if: env(LUAJIT_OPTION)="ON"
 
     - os: linux
-      env: T="clang60_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror -fsanitize=address"
-           CC=clang-6.0 CXX=clang++-6.0
-           ASAN_OPTIONS="verbosity=1:log_threads=1"
-           LSAN_OPTIONS="verbosity=1:log_threads=1"
+      if: env(CC)=gcc-8
 
-    - os: linux
-      env: T="gcc49_pg96_asan_dbtest" RUNTEST="#Dbtest" LUAJIT_OPTION="OFF"
-           CXXFLAGS="-pedantic -Werror -fsanitize=address"
-           CC=gcc-4.9 CXX=g++-4.9
 
-    - os: linux
-      env: T="gcc49_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror -fsanitize=address"
-           CC=gcc-4.9 CXX=g++-4.9
-
-    - os: linux
-      env: T="gcc6_pg96_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror"
-           CC=gcc-6 CXX=g++-6
-
-    - os: linux
-      env: T="gcc7_pg96_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror"
-           CC=gcc-7 CXX=g++-7
-
-    - os: linux
-      env: T="gcc8_pg96_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror"
-           CC=gcc-8 CXX=g++-8
-
-    - os: linux
-      env: T="gcc8_pg96_dbtest_luajit_noCCXFLAGS" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CC=gcc-8 CXX=g++-8
 
 before_install:
   - sudo mkdir -p /extra/pg/tablespacetest   # for the database test
