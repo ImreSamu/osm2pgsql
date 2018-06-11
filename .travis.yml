@@ -1,7 +1,7 @@
 language: generic
 sudo: required
 git:
-  depth: 1
+  depth: 3
 services:
   - postgresql
 
@@ -19,7 +19,7 @@ addons_shortcuts:
     apt:
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-4.0']
       packages: ['clang-4.0', 'postgresql-9.3-postgis-2.3',
-                      'libssl-dev',
+                      'openssl',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_clang50_pg94: &clang50_pg94
@@ -27,7 +27,7 @@ addons_shortcuts:
     apt:
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
       packages: ['clang-5.0', 'postgresql-9.4-postgis-2.3',
-                      'libssl-dev',
+#                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_clang60_pg96: &clang60_pg96
@@ -217,7 +217,7 @@ matrix:
 
 before_install:
   #install lua
-  - pip install hererocks urllib3[secure]
+  - pip install --user hererocks
   - hererocks env --$LUA -rlatest    # Use latest LuaRocks, install into 'env' directory.
   - source env/bin/activate          # Add directory with all installed binaries to PATH.
   # PostgreSQL tablespace dir - for the database test
