@@ -11,6 +11,7 @@ addons_shortcuts:
     apt:
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-3.8']
       packages: ['clang-3.8', 'postgresql-9.2-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_clang40_pg93: &clang40_pg93
@@ -18,6 +19,7 @@ addons_shortcuts:
     apt:
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-4.0']
       packages: ['clang-4.0', 'postgresql-9.3-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_clang50_pg94: &clang50_pg94
@@ -25,6 +27,7 @@ addons_shortcuts:
     apt:
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-5.0']
       packages: ['clang-5.0', 'postgresql-9.4-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_clang60_pg96: &clang60_pg96
@@ -33,6 +36,7 @@ addons_shortcuts:
       update: true
       sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-trusty-6.0']
       packages: ['clang-6.0','postgresql-9.6-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
 
@@ -43,6 +47,7 @@ addons_shortcuts:
     apt:
       sources: ["ubuntu-toolchain-r-test"]
       packages: ['g++-4.8','postgresql-9.6-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc49_pg96: &gcc49_pg96
@@ -50,6 +55,7 @@ addons_shortcuts:
     apt:
       sources: ["ubuntu-toolchain-r-test"]
       packages: ['g++-4.9','postgresql-9.6-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc6_pg96: &gcc6_pg96
@@ -57,6 +63,7 @@ addons_shortcuts:
     apt:
       sources: ["ubuntu-toolchain-r-test"]
       packages: ['g++-6','postgresql-9.6-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc7_pg96: &gcc7_pg96
@@ -64,6 +71,7 @@ addons_shortcuts:
     apt:
       sources: ["ubuntu-toolchain-r-test"]
       packages: ['g++-7','postgresql-9.6-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
   addons_gcc8_pg96: &gcc8_pg96
@@ -71,6 +79,7 @@ addons_shortcuts:
     apt:
       sources: ["ubuntu-toolchain-r-test"]
       packages: ['g++-8','postgresql-9.6-postgis-2.3',
+                      'libssl-dev',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
 
@@ -207,14 +216,14 @@ matrix:
   allow_failures:
 
 before_install:
-#install lua
+  #install lua
   - pip install hererocks
   - hererocks env --$LUA -rlatest    # Use latest LuaRocks, install into 'env' directory.
   - source env/bin/activate          # Add directory with all installed binaries to PATH.
-# PostgreSQL tablespace dir - for the database test
+  # PostgreSQL tablespace dir - for the database test
   - sudo mkdir -p /extra/pg/tablespacetest
   - sudo chown postgres:postgres /extra/pg/tablespacetest
-# checking available versions
+  # checking available versions
   - dpkg -l | grep -E 'lua|proj|xml|bz2|postgis|zlib|boost|expat'
 before_script:
   - psql -U postgres -c "SELECT version()"
