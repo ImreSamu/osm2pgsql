@@ -42,7 +42,7 @@ addons_shortcuts:
     postgresql: '9.6'
     apt:
       sources: ["ubuntu-toolchain-r-test"]
-      packages: ['g++-8','gcc-8-multilib','valgrind','postgresql-9.6-postgis-2.3',
+      packages: ['g++-8','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
@@ -91,11 +91,9 @@ matrix:
 
     - os: linux
       compiler: gcc-8
-      env: T="gcc8_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS=" -pedantic -Werror -fsanitize=address,undefined "
+      env: T="gcc8_pg96_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
+           CXXFLAGS=" -pedantic -Werror  "
            CC=gcc-8 CXX=g++-8
-           ASAN_OPTIONS="verbosity=1:log_threads=1"
-           LSAN_OPTIONS="verbosity=1:log_threads=1"
       addons: *gcc8_pg96
 
 
@@ -104,13 +102,6 @@ matrix:
       env: T="clang60_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CXXFLAGS="-pedantic -Werror -fsanitize=address,undefined,integer "
            CC=clang-6.0 CXX=clang++-6.0
-           ASAN_OPTIONS="verbosity=1:log_threads=1"
-           LSAN_OPTIONS="verbosity=1:log_threads=1"
-
-    - os: linux
-      env: T="gcc8_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS=" -pedantic -Werror -fsanitize=address,undefined "
-           CC=gcc-8 CXX=g++-8
            ASAN_OPTIONS="verbosity=1:log_threads=1"
            LSAN_OPTIONS="verbosity=1:log_threads=1"
 
