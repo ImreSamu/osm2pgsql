@@ -92,7 +92,7 @@ matrix:
     - os: linux
       compiler: gcc-8
       env: T="gcc8_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror -fsanitize=address"
+           CFLAGS_EXTRA=" -pedantic -Werror -fsanitize=address "
            CC=gcc-8 CXX=g++-8
       addons: *gcc8_pg96
 
@@ -107,7 +107,7 @@ matrix:
 
     - os: linux
       env: T="gcc8_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror -fsanitize=address"
+           CFLAGS_EXTRA=" -pedantic -Werror -fsanitize=address "
            CC=gcc-8 CXX=g++-8
 
 
