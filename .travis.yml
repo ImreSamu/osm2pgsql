@@ -102,7 +102,7 @@ matrix:
   allow_failures:
     - os: linux
       env: T="clang60_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
-           CXXFLAGS="-pedantic -Werror -fsanitize=address"
+           CXXFLAGS="-pedantic -Werror -fsanitize=address,undefined,integer "
            CC=clang-6.0 CXX=clang++-6.0
            ASAN_OPTIONS="verbosity=1:log_threads=1"
            LSAN_OPTIONS="verbosity=1:log_threads=1"
@@ -111,6 +111,8 @@ matrix:
       env: T="gcc8_pg96_asan_dbtest_luajit" RUNTEST="#Dbtest" LUAJIT_OPTION="ON"
            CXXFLAGS=" -pedantic -Werror -fsanitize=address,undefined "
            CC=gcc-8 CXX=g++-8
+           ASAN_OPTIONS="verbosity=1:log_threads=1"
+           LSAN_OPTIONS="verbosity=1:log_threads=1"
 
 
 before_install:
@@ -129,7 +131,7 @@ before_script:
   - lua -v
 script:
   - mkdir build && cd build
-  - cmake .. -DCMAKE_CXX_FLAGS="${CXX_FLAGS}" -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Debug -DWITH_LUAJIT=$LUAJIT_OPTION
+  - cmake .. -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Debug -DWITH_LUAJIT=$LUAJIT_OPTION
   - make -j2
   - echo "Running tests ... "
   - if [[ $RUNTEST ]]; then ctest -VV $RUNTEST; fi
