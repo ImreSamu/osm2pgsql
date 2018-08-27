@@ -42,7 +42,7 @@ addons_shortcuts:
     postgresql: '9.6'
     apt:
       sources: ["ubuntu-toolchain-r-test"]
-      packages: ['g++-8','postgresql-9.6-postgis-2.3',
+      packages: ['g++-8','gcc-8-multilib','valgrind','postgresql-9.6-postgis-2.3',
                       'python-psycopg2', 'libexpat1-dev', 'libpq-dev', 'libbz2-dev', 'libproj-dev',
                       'lua5.2', 'liblua5.2-dev', 'libluajit-5.1-dev',
                       'libboost1.55-dev', 'libboost-system1.55-dev', 'libboost-filesystem1.55-dev']
